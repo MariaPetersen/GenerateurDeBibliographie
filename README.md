@@ -22,3 +22,5 @@ Notre Stack technique est composée de :
 Pour faire tourner le projet avec Docker, placez-vous dans le dossier racine du projet et lancer les containers avec :
 
 - docker compose up -d
+
+Après installation, l'application tournera sur localhost:3000

@@ -1,5 +1,5 @@
 {
-  "name": "pdfgenerator",
+  "name": "bibliographygenerator",
   "version": "1.0.0",
   "description": "A pdf generator that generates the information in form of a letter in different styles (officiel letter, letter to send to a pen pal).",
   "main": "index.ts",

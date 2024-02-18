@@ -18,7 +18,6 @@ exports.signup = async (req: Request, res: Response, next: NextFunction) => {
         .json("Missing parameter, request must include email and password");
     }
     const alreadyExistingUser = await userDatabase.getOneUser(email);
-    console.log(alreadyExistingUser);
     if (alreadyExistingUser) {
       res.status(400).json("Something went wrong during signup");
     }

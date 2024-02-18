@@ -1,31 +1,10 @@
 version: "3.8"
 
+networks:
+  bibliography-network:
+    driver: bridge
+
 services:
-  backend:
-    image: bibliography-dev-api
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    container_name: bibliography-backend
-    volumes:
-      - ./api/src:/api/src
-    ports:
-      - 8000:8000
-    environment:
-      - NODE_ENV=development
-  frontend:
-    image: bibliography-dev-front
-    build:
-      context: ./front
-      dockerfile: Dockerfile
-    container_name: bibliography-frontend
-    depends_on:
-      - backend
-    volumes:
-      - ./front/src:/front/src
-      - ./front/public:/front/public
-    ports:
-      - 3000:3000
   db:
     image: postgres
     restart: always
@@ -38,3 +17,42 @@ services:
       - ./dataset:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
+    networks:
+      - bibliography-network
+  backend:
+    image: bibliography-dev-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: pdfgenerator-backend
+    volumes:
+      - ./api/src:/api/src
+    ports:
+      - 8000:8000
+    environment:
+      - NODE_ENV=development
+      - PORT=8000
+      - KEY=BilbliographyGenerateKey
+      - DB_HOST=db
+    networks:
+      - bibliography-network
+    depends_on:
+      - db
+
+  frontend:
+    image: bibliography-dev-front
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: pdfgenerator-frontend
+    environment:
+      - REACT_APP_API=http://localhost:8000
+    depends_on:
+      - backend
+    volumes:
+      - ./front/src:/front/src
+      - ./front/public:/front/public
+    ports:
+      - 3000:3000
+    networks:
+      - bibliography-network
