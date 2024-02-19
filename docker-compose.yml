@@ -24,7 +24,7 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    container_name: pdfgenerator-backend
+    container_name: bibliography-backend
     volumes:
       - ./api/src:/api/src
     ports:
@@ -44,7 +44,7 @@ services:
     build:
       context: ./front
       dockerfile: Dockerfile
-    container_name: pdfgenerator-frontend
+    container_name: bibliography-frontend
     environment:
       - REACT_APP_API=http://localhost:8000
     depends_on:
