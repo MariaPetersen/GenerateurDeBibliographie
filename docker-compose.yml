@@ -32,8 +32,11 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=8000
-      - KEY=BilbliographyGenerateKey
+      - RANDOM_KEY=BilbliographyGenerateKey
       - DB_HOST=db
+      - DB_USER=bibliography
+      - DB_PASSWORD=bibliography
+      - DATABASE=bibliography
     networks:
       - bibliography-network
     depends_on:
